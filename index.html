@@ -6,16 +6,6 @@
 <title>Project Hercules</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0A08'/%3E%3Crect x='2' y='11' width='5' height='10' rx='1.5' fill='%23C9A84C'/%3E%3Crect x='7' y='13' width='3' height='6' rx='1' fill='%23C9A84C'/%3E%3Crect x='10' y='15' width='12' height='2' rx='1' fill='%23C9A84C'/%3E%3Crect x='22' y='13' width='3' height='6' rx='1' fill='%23C9A84C'/%3E%3Crect x='25' y='11' width='5' height='10' rx='1.5' fill='%23C9A84C'/%3E%3C/svg%3E?v=2">
 <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0A08'/%3E%3Crect x='2' y='11' width='5' height='10' rx='1.5' fill='%23C9A84C'/%3E%3Crect x='7' y='13' width='3' height='6' rx='1' fill='%23C9A84C'/%3E%3Crect x='10' y='15' width='12' height='2' rx='1' fill='%23C9A84C'/%3E%3Crect x='22' y='13' width='3' height='6' rx='1' fill='%23C9A84C'/%3E%3Crect x='25' y='11' width='5' height='10' rx='1.5' fill='%23C9A84C'/%3E%3C/svg%3E?v=2">
-
-<!-- PWA: makes "Add to Home Screen" launch fullscreen with the gold dumbbell icon -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='34' fill='%230A0A08'/%3E%3Crect x='11' y='62' width='28' height='56' rx='8' fill='%23C9A84C'/%3E%3Crect x='39' y='73' width='17' height='34' rx='5' fill='%23C9A84C'/%3E%3Crect x='56' y='84' width='68' height='12' rx='5' fill='%23C9A84C'/%3E%3Crect x='124' y='73' width='17' height='34' rx='5' fill='%23C9A84C'/%3E%3Crect x='141' y='62' width='28' height='56' rx='8' fill='%23C9A84C'/%3E%3C/svg%3E">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Hercules">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0A0A08">
-<link rel="manifest" href='data:application/manifest+json,{"name":"Project Hercules","short_name":"Hercules","start_url":".","display":"standalone","background_color":"%230A0A08","theme_color":"%230A0A08","orientation":"portrait","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%2796%27 fill=%27%230A0A08%27/%3E%3Crect x=%2732%27 y=%27176%27 width=%2780%27 height=%27160%27 rx=%2724%27 fill=%27%23C9A84C%27/%3E%3Crect x=%27112%27 y=%27208%27 width=%2748%27 height=%2796%27 rx=%2716%27 fill=%27%23C9A84C%27/%3E%3Crect x=%27160%27 y=%27240%27 width=%27192%27 height=%2732%27 rx=%2712%27 fill=%27%23C9A84C%27/%3E%3Crect x=%27352%27 y=%27208%27 width=%2748%27 height=%2796%27 rx=%2716%27 fill=%27%23C9A84C%27/%3E%3Crect x=%27400%27 y=%27176%27 width=%2780%27 height=%27160%27 rx=%2724%27 fill=%27%23C9A84C%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml","purpose":"any"}]}'>
-
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -517,6 +507,194 @@
   }
 
   .add-set-btn:hover { border-color: var(--gold-dim); color: var(--gold-dim); }
+
+  /* SWAP / REMOVE / ADD EXERCISE controls */
+  .ex-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ex-action-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+
+  .ex-action-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .ex-action-remove:hover { border-color: var(--push); color: var(--push); }
+
+  .ex-custom-badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .add-exercise-btn {
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px dashed var(--gold-dim);
+    color: var(--gold-dim);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .add-exercise-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* MODAL */
+  .ex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .ex-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .ex-modal-header {
+    padding: 20px 24px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ex-modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+
+  .ex-modal-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .ex-modal-body {
+    padding: 16px 24px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .ex-modal-section-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 12px 0 8px;
+  }
+
+  .ex-modal-input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border-radius: 2px;
+    outline: none;
+    margin-bottom: 8px;
+  }
+
+  .ex-modal-input:focus { border-color: var(--gold); }
+
+  .ex-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .ex-modal-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+
+  .ex-modal-item:hover { border-color: var(--gold); background: var(--surface2); }
+  .ex-modal-item-source { color: var(--text-muted); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+  .ex-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .ex-modal-btn {
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    transition: all 0.15s;
+  }
+
+  .ex-modal-btn:hover { border-color: var(--text-dim); color: var(--text); }
+
+  .ex-modal-btn-primary {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  .ex-modal-btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
 
   .notes-area {
     margin-top: 12px;
@@ -2491,8 +2669,9 @@ function renderWorkoutDetail(dayId) {
       </div>
     `;
   } else {
-    day.exercises.forEach((ex, ei) => {
-      const exData = session.exercises[ex.name] || { sets: Array(ex.sets).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
+    const exList = getSessionExercises(dayId, session);
+    exList.forEach((ex, ei) => {
+      const exData = session.exercises[ex.name] || { sets: Array(ex.sets || 3).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
       const setsHtml = exData.sets.map((set, si) => `
         <div class="sets-header" style="${si===0?'':'display:none'}">Set</div>
         <div class="sets-header" style="${si===0?'':'display:none'}">Weight (lbs)</div>
@@ -2512,14 +2691,19 @@ function renderWorkoutDetail(dayId) {
           onclick="toggleSetDone(this)">✓</button>
       `).join('');
 
+      const isCustom = ex.custom ? '<span class="ex-custom-badge">SWAPPED</span>' : '';
       html += `
         <div class="exercise-row" id="ex-row-${ei}">
           <div class="exercise-header" onclick="toggleExercise(${ei})">
-            <div class="exercise-name">${ex.name}</div>
+            <div class="exercise-name">${ex.name} ${isCustom}</div>
             <div class="exercise-scheme">${ex.scheme}</div>
             <div class="expand-icon">+</div>
           </div>
           <div class="sets-area">
+            <div class="ex-actions">
+              <button class="ex-action-btn" onclick="event.stopPropagation();openSwapModal('${dayId}', ${ei})">↻ Swap</button>
+              <button class="ex-action-btn ex-action-remove" onclick="event.stopPropagation();removeExercise('${dayId}', ${ei})">✕ Remove</button>
+            </div>
             <div class="sets-grid">${setsHtml}</div>
             <button class="add-set-btn" onclick="addSet('${dayId}', ${ei})">+ Add Set</button>
             <div class="notes-area">
@@ -2531,6 +2715,7 @@ function renderWorkoutDetail(dayId) {
         </div>
       `;
     });
+    html += `<button class="add-exercise-btn" onclick="openAddExerciseModal('${dayId}')">+ Add Exercise to Today</button>`;
   }
 
   html += `<button class="save-workout-btn" onclick="saveWorkout('${dayId}')">SAVE WORKOUT</button>`;
@@ -2545,11 +2730,14 @@ function toggleActivity(dayId, ei, exName, btn) {
   const isOn = session.activityChecks[exName];
   btn.classList.toggle('on', isOn);
   document.getElementById(`act-item-${ei}`).classList.toggle('checked', isOn);
+  persistWorkouts();
+  updateStats();
 }
 
 function updateActivityNotes(dayId, textarea) {
   const { session } = getOrCreateSession(dayId);
   session.activityNotes = textarea.value;
+  persistWorkouts();
 }
 
 function toggleExercise(ei) {
@@ -2611,8 +2799,9 @@ function renderWorkoutDetailWithDate(dayId, date) {
       </div>
     `;
   } else {
-    day.exercises.forEach((ex, ei) => {
-      const exData = session.exercises[ex.name] || { sets: Array(ex.sets).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
+    const exList = getSessionExercises(dayId, session);
+    exList.forEach((ex, ei) => {
+      const exData = session.exercises[ex.name] || { sets: Array(ex.sets || 3).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
       const setsHtml = exData.sets.map((set, si) => `
         <div class="sets-header" style="${si===0?'':'display:none'}">Set</div>
         <div class="sets-header" style="${si===0?'':'display:none'}">Weight (lbs)</div>
@@ -2632,14 +2821,19 @@ function renderWorkoutDetailWithDate(dayId, date) {
           onclick="toggleSetDone(this)">✓</button>
       `).join('');
 
+      const isCustom = ex.custom ? '<span class="ex-custom-badge">SWAPPED</span>' : '';
       html += `
         <div class="exercise-row" id="ex-row-${ei}">
           <div class="exercise-header" onclick="toggleExercise(${ei})">
-            <div class="exercise-name">${ex.name}</div>
+            <div class="exercise-name">${ex.name} ${isCustom}</div>
             <div class="exercise-scheme">${ex.scheme}</div>
             <div class="expand-icon">+</div>
           </div>
           <div class="sets-area">
+            <div class="ex-actions">
+              <button class="ex-action-btn" onclick="event.stopPropagation();openSwapModal('${dayId}', ${ei})">↻ Swap</button>
+              <button class="ex-action-btn ex-action-remove" onclick="event.stopPropagation();removeExercise('${dayId}', ${ei})">✕ Remove</button>
+            </div>
             <div class="sets-grid">${setsHtml}</div>
             <button class="add-set-btn" onclick="addSet('${dayId}', ${ei})">+ Add Set</button>
             <div class="notes-area">
@@ -2651,6 +2845,7 @@ function renderWorkoutDetailWithDate(dayId, date) {
         </div>
       `;
     });
+    html += `<button class="add-exercise-btn" onclick="openAddExerciseModal('${dayId}')">+ Add Exercise to Today</button>`;
   }
 
   html += `<button class="save-workout-btn" onclick="saveWorkout('${dayId}', '${date}')">SAVE WORKOUT</button>`;
@@ -2671,32 +2866,46 @@ function getOrCreateSession(dayId) {
   return { key, session: workoutData[key] };
 }
 
+// Persist all workout data to localStorage. Called after every mutation so users never lose progress.
+function persistWorkouts() {
+  localStorage.setItem('hercules_workouts', JSON.stringify(workoutData));
+}
+
+// Returns the effective exercise list for a session: session.customExercises if set (today's swaps/adds), else the template.
+function getSessionExercises(dayId, session) {
+  if (session && Array.isArray(session.customExercises)) return session.customExercises;
+  const day = ALL_DAYS.find(d => d.id === dayId);
+  return day ? day.exercises : [];
+}
+
 function updateSet(input) {
   const { dayId, ex: exIdxStr, si: siStr, field } = input.dataset;
   const exIdx = parseInt(exIdxStr);
   const si = parseInt(siStr);
   const { key, session } = getOrCreateSession(dayId);
-  const day = ALL_DAYS.find(d => d.id === dayId);
-  const exName = day.exercises[exIdx].name;
+  const exList = getSessionExercises(dayId, session);
+  const exName = exList[exIdx].name;
 
   if (!session.exercises[exName]) {
-    const ex = day.exercises[exIdx];
-    session.exercises[exName] = { sets: Array(ex.sets).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
+    const ex = exList[exIdx];
+    session.exercises[exName] = { sets: Array(ex.sets || 3).fill(null).map(() => ({ weight: '', reps: '', done: false })), notes: '' };
   }
   while (session.exercises[exName].sets.length <= si) session.exercises[exName].sets.push({ weight: '', reps: '', done: false });
   session.exercises[exName].sets[si][field] = input.value;
   if (input.value) input.classList.add('filled');
   else input.classList.remove('filled');
+  persistWorkouts();
 }
 
 function updateNotes(textarea) {
   const { dayId, ex: exIdxStr } = textarea.dataset;
   const exIdx = parseInt(exIdxStr);
   const { session } = getOrCreateSession(dayId);
-  const day = ALL_DAYS.find(d => d.id === dayId);
-  const exName = day.exercises[exIdx].name;
+  const exList = getSessionExercises(dayId, session);
+  const exName = exList[exIdx].name;
   if (!session.exercises[exName]) session.exercises[exName] = { sets: [], notes: '' };
   session.exercises[exName].notes = textarea.value;
+  persistWorkouts();
 }
 
 function toggleSetDone(btn) {
@@ -2704,18 +2913,20 @@ function toggleSetDone(btn) {
   const exIdx = parseInt(exIdxStr);
   const si = parseInt(siStr);
   const { session } = getOrCreateSession(dayId);
-  const day = ALL_DAYS.find(d => d.id === dayId);
-  const exName = day.exercises[exIdx].name;
+  const exList = getSessionExercises(dayId, session);
+  const exName = exList[exIdx].name;
   if (!session.exercises[exName]) session.exercises[exName] = { sets: [], notes: '' };
   while (session.exercises[exName].sets.length <= si) session.exercises[exName].sets.push({ weight: '', reps: '', done: false });
   session.exercises[exName].sets[si].done = !session.exercises[exName].sets[si].done;
   btn.classList.toggle('done');
+  persistWorkouts();
+  updateStats();
 }
 
 function addSet(dayId, exIdx) {
   const { session } = getOrCreateSession(dayId);
-  const day = ALL_DAYS.find(d => d.id === dayId);
-  const exName = day.exercises[exIdx].name;
+  const exList = getSessionExercises(dayId, session);
+  const exName = exList[exIdx].name;
   if (!session.exercises[exName]) session.exercises[exName] = { sets: [], notes: '' };
   const newSi = session.exercises[exName].sets.length;
   session.exercises[exName].sets.push({ weight: '', reps: '', done: false });
@@ -2737,6 +2948,211 @@ function addSet(dayId, exIdx) {
       onclick="toggleSetDone(this)">✓</button>
   `);
   grid.appendChild(frag);
+  persistWorkouts();
+}
+
+// ─── EXERCISE SWAP / REMOVE / ADD ──────────────────────────────────────────
+// All changes are session-scoped: they affect only today's session, never the template.
+
+// Ensure session has a customExercises array. Initialize from template on first edit.
+function ensureCustomExercises(dayId, session) {
+  if (!Array.isArray(session.customExercises)) {
+    const day = ALL_DAYS.find(d => d.id === dayId);
+    // Deep-copy template exercises so edits don't mutate the original DAYS array
+    session.customExercises = (day.exercises || []).map(ex => ({ ...ex }));
+  }
+  return session.customExercises;
+}
+
+// Build a deduplicated list of all exercises across all template days, for the swap picker
+function getAllTemplateExercises() {
+  const seen = new Set();
+  const out = [];
+  DAYS.forEach(day => {
+    if (day.activity) return;
+    (day.exercises || []).forEach(ex => {
+      if (!seen.has(ex.name)) {
+        seen.add(ex.name);
+        out.push({ name: ex.name, scheme: ex.scheme, sets: ex.sets, sourceDay: day.name });
+      }
+    });
+  });
+  return out.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Re-render whichever workout view is currently open
+function rerenderCurrentSession(dayId) {
+  const dateEl = document.getElementById('session-date');
+  if (dateEl && dateEl.value && dateEl.value !== localToday()) {
+    renderWorkoutDetailWithDate(dayId, dateEl.value);
+  } else {
+    renderWorkoutDetail(dayId);
+  }
+}
+
+function closeExModal() {
+  const m = document.getElementById('ex-modal-backdrop');
+  if (m) m.remove();
+}
+
+function openSwapModal(dayId, exIdx) {
+  const { session } = getOrCreateSession(dayId);
+  const exList = getSessionExercises(dayId, session);
+  const current = exList[exIdx];
+  const allEx = getAllTemplateExercises().filter(e => e.name !== current.name);
+
+  const html = `
+    <div class="ex-modal-backdrop" id="ex-modal-backdrop" onclick="if(event.target===this)closeExModal()">
+      <div class="ex-modal">
+        <div class="ex-modal-header">
+          <div class="ex-modal-title">Swap Exercise</div>
+          <div class="ex-modal-sub">Replacing: ${current.name}</div>
+        </div>
+        <div class="ex-modal-body">
+          <div class="ex-modal-section-label">Type a custom exercise</div>
+          <input type="text" class="ex-modal-input" id="swap-custom-name" placeholder="e.g. Goblet Squat">
+          <input type="text" class="ex-modal-input" id="swap-custom-scheme" placeholder="Scheme (e.g. 3×8-12)" value="${current.scheme || ''}">
+
+          <div class="ex-modal-section-label" style="margin-top:20px">Or pick from your other workouts</div>
+          <input type="text" class="ex-modal-input" id="swap-filter" placeholder="Search…" oninput="filterSwapList(this.value)">
+          <div class="ex-modal-list" id="swap-list">
+            ${allEx.map(e => `
+              <button class="ex-modal-item" onclick="confirmSwapFromList('${dayId}', ${exIdx}, ${JSON.stringify(e).replace(/"/g, '&quot;')})">
+                <div>${e.name}</div>
+                <div class="ex-modal-item-source">${e.scheme} · from ${e.sourceDay}</div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+        <div class="ex-modal-footer">
+          <button class="ex-modal-btn" onclick="closeExModal()">Cancel</button>
+          <button class="ex-modal-btn ex-modal-btn-primary" onclick="confirmSwapCustom('${dayId}', ${exIdx})">Use Custom</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function filterSwapList(q) {
+  q = (q || '').toLowerCase().trim();
+  document.querySelectorAll('#swap-list .ex-modal-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = !q || text.includes(q) ? '' : 'none';
+  });
+}
+
+// Apply a swap. Preserves any sets already logged for the OLD exercise by moving them under the NEW name.
+function applySwap(dayId, exIdx, newEx) {
+  const { session } = getOrCreateSession(dayId);
+  const exList = ensureCustomExercises(dayId, session);
+  const oldName = exList[exIdx].name;
+  // Move logged sets, if any
+  if (session.exercises[oldName] && !session.exercises[newEx.name]) {
+    session.exercises[newEx.name] = session.exercises[oldName];
+    delete session.exercises[oldName];
+  }
+  exList[exIdx] = { ...newEx, custom: true };
+  persistWorkouts();
+  closeExModal();
+  rerenderCurrentSession(dayId);
+}
+
+function confirmSwapFromList(dayId, exIdx, exObj) {
+  applySwap(dayId, exIdx, { name: exObj.name, scheme: exObj.scheme, sets: exObj.sets || 3 });
+}
+
+function confirmSwapCustom(dayId, exIdx) {
+  const name = (document.getElementById('swap-custom-name').value || '').trim();
+  const scheme = (document.getElementById('swap-custom-scheme').value || '').trim() || '3×8-12';
+  if (!name) {
+    alert('Please enter an exercise name');
+    return;
+  }
+  applySwap(dayId, exIdx, { name, scheme, sets: 3 });
+}
+
+function removeExercise(dayId, exIdx) {
+  const { session } = getOrCreateSession(dayId);
+  const exList = ensureCustomExercises(dayId, session);
+  const ex = exList[exIdx];
+  if (!confirm(`Remove "${ex.name}" from today's workout?\n\nThis only affects today — your weekly template stays the same.`)) return;
+  // Remove logged sets for this exercise too
+  if (session.exercises[ex.name]) delete session.exercises[ex.name];
+  exList.splice(exIdx, 1);
+  persistWorkouts();
+  rerenderCurrentSession(dayId);
+}
+
+function openAddExerciseModal(dayId) {
+  const allEx = getAllTemplateExercises();
+  const html = `
+    <div class="ex-modal-backdrop" id="ex-modal-backdrop" onclick="if(event.target===this)closeExModal()">
+      <div class="ex-modal">
+        <div class="ex-modal-header">
+          <div class="ex-modal-title">Add Exercise</div>
+          <div class="ex-modal-sub">Adds to today's session only</div>
+        </div>
+        <div class="ex-modal-body">
+          <div class="ex-modal-section-label">Type a custom exercise</div>
+          <input type="text" class="ex-modal-input" id="add-custom-name" placeholder="e.g. Face Pulls">
+          <input type="text" class="ex-modal-input" id="add-custom-scheme" placeholder="Scheme (e.g. 3×12-15)" value="3×8-12">
+
+          <div class="ex-modal-section-label" style="margin-top:20px">Or pick from your other workouts</div>
+          <input type="text" class="ex-modal-input" id="add-filter" placeholder="Search…" oninput="filterAddList(this.value)">
+          <div class="ex-modal-list" id="add-list">
+            ${allEx.map(e => `
+              <button class="ex-modal-item" onclick="confirmAddFromList('${dayId}', ${JSON.stringify(e).replace(/"/g, '&quot;')})">
+                <div>${e.name}</div>
+                <div class="ex-modal-item-source">${e.scheme} · from ${e.sourceDay}</div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+        <div class="ex-modal-footer">
+          <button class="ex-modal-btn" onclick="closeExModal()">Cancel</button>
+          <button class="ex-modal-btn ex-modal-btn-primary" onclick="confirmAddCustom('${dayId}')">Add Custom</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function filterAddList(q) {
+  q = (q || '').toLowerCase().trim();
+  document.querySelectorAll('#add-list .ex-modal-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = !q || text.includes(q) ? '' : 'none';
+  });
+}
+
+function applyAdd(dayId, newEx) {
+  const { session } = getOrCreateSession(dayId);
+  const exList = ensureCustomExercises(dayId, session);
+  // Avoid adding an exact duplicate name
+  if (exList.some(e => e.name === newEx.name)) {
+    alert(`"${newEx.name}" is already in today's workout.`);
+    return;
+  }
+  exList.push({ ...newEx, custom: true });
+  persistWorkouts();
+  closeExModal();
+  rerenderCurrentSession(dayId);
+}
+
+function confirmAddFromList(dayId, exObj) {
+  applyAdd(dayId, { name: exObj.name, scheme: exObj.scheme, sets: exObj.sets || 3 });
+}
+
+function confirmAddCustom(dayId) {
+  const name = (document.getElementById('add-custom-name').value || '').trim();
+  const scheme = (document.getElementById('add-custom-scheme').value || '').trim() || '3×8-12';
+  if (!name) {
+    alert('Please enter an exercise name');
+    return;
+  }
+  applyAdd(dayId, { name, scheme, sets: 3 });
 }
 
 function saveWorkout(dayId, dateOverride) {
